@@ -1,0 +1,13 @@
+# Profile PROD: tat SQL log, chi log WARN tro len, an Swagger UI.
+spring:
+  jpa:
+    show-sql: false
+springdoc:
+  swagger-ui:
+    enabled: false
+  api-docs:
+    enabled: false
+logging:
+  level:
+    root: warn
+    com.coford.cafe: info

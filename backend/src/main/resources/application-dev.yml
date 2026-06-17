@@ -1,0 +1,9 @@
+# Profile DEV: chay local, log chi tiet, hien SQL de hoc/debug.
+spring:
+  jpa:
+    show-sql: true
+logging:
+  level:
+    com.coford.cafe: debug
+    org.hibernate.SQL: debug
+    org.hibernate.orm.jdbc.bind: trace   # in gia tri tham so binding

@@ -1,0 +1,80 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: coford-backend
+  profiles:
+    default: dev
+  # Cau hinh DB lay tu bien moi truong, co gia tri mac dinh cho local.
+  # Production se truyen qua env / Vault (xem Phase 7) thay vi hardcode.
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/coford}
+    username: ${DB_USERNAME:coford}
+    password: ${DB_PASSWORD:coford}
+  jpa:
+    hibernate:
+      ddl-auto: validate   # Flyway quan ly schema, Hibernate chi validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  # Redis (Phase 3): distributed cache + idempotency store
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+  # Keycloak (Phase 5): xác thực JWT
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_ISSUER:http://localhost:8081/realms/coford}
+  # Kafka (Phase 4): event đơn hàng cho màn bếp
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP:localhost:9092}
+    consumer:
+      group-id: coford-kitchen
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+coford:
+  # TTL idempotency key (giờ)
+  idempotency:
+    ttl-hours: 24
+  # Tích hợp CoreBank (đối soát chuyển khoản). Credentials để trống nếu server đã có session.
+  corebank:
+    base-url: ${COREBANK_URL:http://localhost:2001/api}
+    username: ${COREBANK_USER:}
+    password: ${COREBANK_PASS:}
+    account-number: ${COREBANK_ACCOUNT:}
+  # Tài khoản nhận tiền để sinh mã VietQR khi khách chuyển khoản.
+  # bank: mã ngân hàng theo VietQR (MB, VCB, TPB, TCB, ACB, VPB, BIDV, ICB...). ĐỔI cho đúng ngân hàng của bạn.
+  payment:
+    bank: ${PAYMENT_BANK:MB}
+    account-number: ${PAYMENT_ACCOUNT:0394115467}
+    account-name: ${PAYMENT_NAME:NGUYEN MINH QUANG}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+# Phase 6: Observability — expose health + metrics Prometheus
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus, metrics
+  metrics:
+    tags:
+      application: coford
+  endpoint:
+    health:
+      show-details: when-authorized

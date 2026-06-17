@@ -1,0 +1,49 @@
+{
+  "realm": "coford",
+  "enabled": true,
+  "displayName": "Coford",
+  "loginTheme": "keycloak",
+  "accessTokenLifespan": 1800,
+  "roles": {
+    "realm": [
+      { "name": "STAFF", "description": "Nhân viên: order, thu ngân, bếp" },
+      { "name": "MANAGER", "description": "Quản lý: thêm menu, báo cáo, ngân hàng" }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "coford-web",
+      "enabled": true,
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "redirectUris": ["http://localhost:5173/*", "http://localhost:4173/*", "*"],
+      "webOrigins": ["*"],
+      "attributes": { "post.logout.redirect.uris": "+" }
+    }
+  ],
+  "users": [
+    {
+      "username": "thungan",
+      "enabled": true,
+      "emailVerified": true,
+      "email": "thungan@coford.local",
+      "firstName": "Thu",
+      "lastName": "Ngân",
+      "requiredActions": [],
+      "credentials": [{ "type": "password", "value": "123456", "temporary": false }],
+      "realmRoles": ["STAFF"]
+    },
+    {
+      "username": "quanly",
+      "enabled": true,
+      "emailVerified": true,
+      "email": "quanly@coford.local",
+      "firstName": "Quản",
+      "lastName": "Lý",
+      "requiredActions": [],
+      "credentials": [{ "type": "password", "value": "123456", "temporary": false }],
+      "realmRoles": ["STAFF", "MANAGER"]
+    }
+  ]
+}

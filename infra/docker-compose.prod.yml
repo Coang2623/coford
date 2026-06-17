@@ -1,0 +1,161 @@
+# =============================================================================
+# Coford — Production stack cho 1 VM Ubuntu (truy cap qua IP, HTTP)
+# Chay:  cd infra && cp .env.example .env  (sua HOST_IP) && docker compose -f docker-compose.prod.yml up -d --build
+#
+# So do cong (publish ra VM):
+#   80   -> frontend (nginx)      http://HOST_IP
+#   8081 -> keycloak              http://HOST_IP:8081  (admin/admin)
+#   3000 -> grafana               http://HOST_IP:3000  (admin/admin)
+#   9090 -> prometheus            http://HOST_IP:9090
+#   8090 -> adminer               http://HOST_IP:8090
+#   8080 -> backend (de debug; frontend goi noi bo qua mang docker)
+# Postgres/Redis/Kafka KHONG publish ra ngoai (chi noi bo mang docker).
+# =============================================================================
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: coford-postgres
+    environment:
+      POSTGRES_DB: coford
+      POSTGRES_USER: coford
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-coford}
+    volumes:
+      - coford-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U coford"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: coford-redis
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  kafka:
+    image: apache/kafka:3.8.0
+    container_name: coford-kafka
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093
+      # Backend connect qua ten service "kafka" trong mang docker
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0
+    container_name: coford-keycloak
+    command: start-dev --import-realm
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_HTTP_PORT: 8080
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./keycloak/coford-realm.json:/opt/keycloak/data/import/coford-realm.json:ro
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ../backend
+    container_name: coford-backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_URL: jdbc:postgresql://postgres:5432/coford
+      DB_USERNAME: coford
+      DB_PASSWORD: ${DB_PASSWORD:-coford}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      KAFKA_BOOTSTRAP: kafka:9092
+      # Issuer PHAI trung voi URL ma trinh duyet dung de login (http://HOST_IP:8081)
+      KEYCLOAK_ISSUER: http://${HOST_IP}:8081/realms/coford
+      # Tich hop CoreBank + tai khoan nhan tien (sua neu can)
+      COREBANK_URL: ${COREBANK_URL:-http://localhost:2001/api}
+      COREBANK_USER: ${COREBANK_USER:-}
+      COREBANK_PASS: ${COREBANK_PASS:-}
+      COREBANK_ACCOUNT: ${COREBANK_ACCOUNT:-}
+      PAYMENT_BANK: ${PAYMENT_BANK:-MB}
+      PAYMENT_ACCOUNT: ${PAYMENT_ACCOUNT:-0394115467}
+      PAYMENT_NAME: ${PAYMENT_NAME:-NGUYEN MINH QUANG}
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ../frontend
+      args:
+        # Vite nhung URL nay vao bundle luc build -> phai la IP VM
+        VITE_KEYCLOAK_URL: http://${HOST_IP}:8081
+    container_name: coford-frontend
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    restart: unless-stopped
+
+  adminer:
+    image: adminer:4
+    container_name: coford-adminer
+    depends_on:
+      - postgres
+    ports:
+      - "8090:8080"
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:v2.54.1
+    container_name: coford-prometheus
+    command: ["--config.file=/etc/prometheus/prometheus.yml"]
+    volumes:
+      - ./prometheus/prometheus.prod.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:11.3.0
+    container_name: coford-grafana
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:-admin}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - prometheus
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+volumes:
+  coford-pgdata:

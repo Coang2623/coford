@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+/* Phong cách: iOS 26 — thẻ nhóm bo góc lớn, nền grouped, control bo tròn, khoảng cách thoáng */
+@theme {
+  --color-bg: #F2F1ED;          /* grouped background (ấm nhẹ) */
+  --color-surface: #FFFFFF;     /* thẻ */
+  --color-ink: #1A1714;         /* label chính */
+  --color-muted: #6F6A63;       /* label phụ */
+  --color-faint: #9C968C;       /* tertiary / caption */
+  --color-line: #E6E2DB;        /* separator */
+  --color-line-strong: #D9D4CB;
+  --color-accent: #B0451F;      /* tint duy nhất */
+  --color-accent-soft: #F4E9E2;
+  --color-success: #3F6B53;
+  --color-success-soft: #E5EEE8;
+  --color-danger: #C0392B;
+  --color-danger-soft: #F7E7E4;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;
+}
+
+@layer base {
+  html, body, #root { height: 100%; }
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .tnum { font-variant-numeric: tabular-nums; }
+}
+
+@media print {
+  body * { visibility: hidden; }
+  .printable, .printable * { visibility: visible; }
+  .printable { position: absolute; inset: 0; margin: 0 auto; }
+  .no-print { display: none !important; }
+}
