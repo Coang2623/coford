@@ -2,6 +2,14 @@
 spring:
   jpa:
     show-sql: false
+  # Keycloak chay sau reverse proxy HTTPS (issuer = https://<IP>/kc/realms/coford).
+  # Backend lay JWKS truc tiep tu KC qua HTTP noi bo (khoi phai tin cert self-signed),
+  # nhung van validate claim "iss" theo issuer-uri HTTPS (cau hinh o application.yml).
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${KEYCLOAK_JWKS:http://keycloak:8080/kc/realms/coford/protocol/openid-connect/certs}
 springdoc:
   swagger-ui:
     enabled: false

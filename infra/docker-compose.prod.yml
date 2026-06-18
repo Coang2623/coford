@@ -70,8 +70,11 @@ services:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
       KC_HTTP_PORT: 8080
-    ports:
-      - "8081:8080"
+      # Chay sau reverse proxy HTTPS cua nginx, chung origin voi app qua /kc
+      KC_HTTP_RELATIVE_PATH: /kc
+      KC_PROXY_HEADERS: xforwarded
+      KC_HOSTNAME: https://${HOST_IP}
+      KC_HOSTNAME_STRICT: "false"
     volumes:
       - ./keycloak/coford-realm.json:/opt/keycloak/data/import/coford-realm.json:ro
     restart: unless-stopped
@@ -95,8 +98,10 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
       KAFKA_BOOTSTRAP: kafka:9092
-      # Issuer PHAI trung voi URL ma trinh duyet dung de login (http://HOST_IP:8081)
-      KEYCLOAK_ISSUER: http://${HOST_IP}:8081/realms/coford
+      # Issuer = URL HTTPS qua reverse proxy (trung voi token do KC phat).
+      # JWKS lay noi bo qua HTTP (khoi tin cert self-signed) — xem application-prod.yml.
+      KEYCLOAK_ISSUER: https://${HOST_IP}/kc/realms/coford
+      KEYCLOAK_JWKS: http://keycloak:8080/kc/realms/coford/protocol/openid-connect/certs
       # Tich hop CoreBank + tai khoan nhan tien (sua neu can)
       COREBANK_URL: ${COREBANK_URL:-http://localhost:2001/api}
       COREBANK_USER: ${COREBANK_USER:-}
@@ -113,13 +118,16 @@ services:
     build:
       context: ../frontend
       args:
-        # Vite nhung URL nay vao bundle luc build -> phai la IP VM
-        VITE_KEYCLOAK_URL: http://${HOST_IP}:8081
+        # Keycloak chung origin qua HTTPS /kc; HOST_IP de tao self-signed cert dung SAN
+        VITE_KEYCLOAK_URL: https://${HOST_IP}/kc
+        HOST_IP: ${HOST_IP}
     container_name: coford-frontend
     depends_on:
       - backend
+      - keycloak
     ports:
       - "80:80"
+      - "443:443"
     restart: unless-stopped
 
   adminer:

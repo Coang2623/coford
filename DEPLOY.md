@@ -43,8 +43,8 @@ Lần đầu build backend (Maven) hơi lâu; cần VM tối thiểu ~2GB RAM (k
 ## 6. Truy cập
 | Dịch vụ | URL | Đăng nhập |
 |---|---|---|
-| App (frontend) | http://HOST_IP | thungan/123456 (STAFF), quanly/123456 (MANAGER) |
-| Keycloak admin | http://HOST_IP:8081 | admin/admin |
+| App (frontend) | https://HOST_IP (tự chấp nhận cảnh báo cert self-signed) | thungan/123456 (STAFF), quanly/123456 (MANAGER) |
+| Keycloak admin | https://HOST_IP/kc/admin | admin/admin |
 | Grafana | http://HOST_IP:3000 | admin/admin |
 | Prometheus | http://HOST_IP:9090 | — |
 | Adminer (DB) | http://HOST_IP:8090 | server=postgres, user/pass=coford |
