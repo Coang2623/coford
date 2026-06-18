@@ -21,9 +21,15 @@ function render() {
   )
 }
 
-// Bắt buộc đăng nhập Keycloak trước khi vào app
+// Bắt buộc đăng nhập Keycloak trước khi vào app.
+// PKCE S256 cần crypto.subtle — chỉ có trong "secure context" (HTTPS hoặc localhost).
+// Khi deploy LAN qua HTTP+IP, crypto.subtle không tồn tại nên bỏ PKCE để init() không vỡ.
+const initOptions = { onLoad: 'login-required', checkLoginIframe: false }
+if (window.isSecureContext && window.crypto?.subtle) {
+  initOptions.pkceMethod = 'S256'
+}
 keycloak
-  .init({ onLoad: 'login-required', pkceMethod: 'S256', checkLoginIframe: false })
+  .init(initOptions)
   .then((authenticated) => {
     if (!authenticated) {
       keycloak.login()
