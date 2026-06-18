@@ -73,7 +73,8 @@ services:
       # Chay sau reverse proxy HTTPS cua nginx, chung origin voi app qua /kc
       KC_HTTP_RELATIVE_PATH: /kc
       KC_PROXY_HEADERS: xforwarded
-      KC_HOSTNAME: https://${HOST_IP}
+      # Phai gom ca /kc vao hostname, neu khong KC sinh URL (form action, CSS) o goc -> 405/404
+      KC_HOSTNAME: https://${HOST_IP}/kc
       KC_HOSTNAME_STRICT: "false"
     volumes:
       - ./keycloak/coford-realm.json:/opt/keycloak/data/import/coford-realm.json:ro
