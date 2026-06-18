@@ -103,8 +103,8 @@ services:
       # JWKS lay noi bo qua HTTP (khoi tin cert self-signed) — xem application-prod.yml.
       KEYCLOAK_ISSUER: https://${HOST_IP}/kc/realms/coford
       KEYCLOAK_JWKS: http://keycloak:8080/kc/realms/coford/protocol/openid-connect/certs
-      # Tich hop CoreBank + tai khoan nhan tien (sua neu can)
-      COREBANK_URL: ${COREBANK_URL:-http://localhost:2001/api}
+      # Tich hop CoreBank: goi service "corebank" cung mang docker (xem service ben duoi)
+      COREBANK_URL: ${COREBANK_URL:-http://corebank:2001/api}
       COREBANK_USER: ${COREBANK_USER:-}
       COREBANK_PASS: ${COREBANK_PASS:-}
       COREBANK_ACCOUNT: ${COREBANK_ACCOUNT:-}
@@ -166,5 +166,22 @@ services:
       - "3000:3000"
     restart: unless-stopped
 
+  # CoreBank Panel (https://github.com/danieldev23/corebank-panel) — tu dong dang nhap
+  # MBBank, giu session, tra balance/transactions cho chuc nang Ngan hang cua Coford.
+  # Clone repo nay CANH thu muc coford (vd /home/coford/corebank-panel) truoc khi up.
+  corebank:
+    build:
+      context: ${COREBANK_PATH:-../../corebank-panel}
+    container_name: coford-corebank
+    environment:
+      PORT: "2001"
+      NODE_ENV: production
+    volumes:
+      - corebank-data:/app/server/data
+    ports:
+      - "2001:2001"   # mo UI CoreBank de cau hinh credentials/thong bao tai http://<IP>:2001
+    restart: unless-stopped
+
 volumes:
   coford-pgdata:
+  corebank-data:
