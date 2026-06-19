@@ -6648,8 +6648,8 @@
     {
       "type": "frame",
       "id": "kqCmr",
-      "x": 300,
-      "y": 4440,
+      "x": 1934,
+      "y": -880,
       "name": "Mobile - Bán hàng (Mang đi)",
       "clip": true,
       "width": 390,
@@ -7147,8 +7147,8 @@
     {
       "type": "frame",
       "id": "orbhN",
-      "x": 750,
-      "y": 4440,
+      "x": 2384,
+      "y": -880,
       "name": "Mobile - Đơn hàng",
       "clip": true,
       "width": 390,
@@ -7947,8 +7947,8 @@
     {
       "type": "frame",
       "id": "t9ozk",
-      "x": 1200,
-      "y": 4440,
+      "x": 2834,
+      "y": -880,
       "name": "Mobile - Thanh toán",
       "clip": true,
       "width": 390,
@@ -8454,8 +8454,8 @@
     {
       "type": "frame",
       "id": "vN7QP",
-      "x": 1650,
-      "y": 4440,
+      "x": 3284,
+      "y": -880,
       "name": "Mobile - Bếp",
       "clip": true,
       "width": 390,
@@ -8989,8 +8989,8 @@
     {
       "type": "frame",
       "id": "IPgX8",
-      "x": 2100,
-      "y": 4440,
+      "x": 3734,
+      "y": -880,
       "name": "Mobile - Báo cáo",
       "clip": true,
       "width": 390,
@@ -10097,8 +10097,8 @@
     {
       "type": "frame",
       "id": "WkXtI",
-      "x": 2550,
-      "y": 4440,
+      "x": 4184,
+      "y": -880,
       "name": "Mobile - Quản lý",
       "clip": true,
       "width": 390,
@@ -10277,8 +10277,8 @@
     {
       "type": "frame",
       "id": "jyQUR",
-      "x": 3000,
-      "y": 4440,
+      "x": 4634,
+      "y": -880,
       "name": "Mobile - Giỏ hàng (Mang đi)",
       "clip": true,
       "width": 390,
@@ -10566,8 +10566,8 @@
     {
       "type": "frame",
       "id": "QDwLV",
-      "x": 6700,
-      "y": 4440,
+      "x": 8334,
+      "y": -880,
       "name": "m/TableCard",
       "reusable": true,
       "width": 170,
@@ -10714,8 +10714,8 @@
     {
       "type": "frame",
       "id": "p3vOg",
-      "x": 3450,
-      "y": 4440,
+      "x": 5084,
+      "y": -880,
       "name": "Mobile - Bàn",
       "clip": true,
       "width": 390,
@@ -11310,8 +11310,8 @@
     {
       "type": "frame",
       "id": "KgHBd",
-      "x": 3900,
-      "y": 4440,
+      "x": 5534,
+      "y": -880,
       "name": "Mobile - Chi tiết đơn (Tại bàn)",
       "clip": true,
       "width": 390,
@@ -11838,8 +11838,8 @@
     {
       "type": "frame",
       "id": "Uc15q",
-      "x": 6700,
-      "y": 4620,
+      "x": 8334,
+      "y": -700,
       "name": "m/ListRow",
       "reusable": true,
       "width": 358,
@@ -11930,8 +11930,8 @@
     {
       "type": "frame",
       "id": "i0NCjO",
-      "x": 4350,
-      "y": 4440,
+      "x": 5984,
+      "y": -880,
       "name": "Mobile - Quản lý / Thực đơn",
       "clip": true,
       "width": 390,
@@ -12857,8 +12857,8 @@
     {
       "type": "frame",
       "id": "OAPoz",
-      "x": 4800,
-      "y": 4440,
+      "x": 6434,
+      "y": -880,
       "name": "Mobile - Quản lý / Danh mục",
       "clip": true,
       "width": 390,
@@ -13378,8 +13378,8 @@
     {
       "type": "frame",
       "id": "a67Qj",
-      "x": 5250,
-      "y": 4440,
+      "x": 6884,
+      "y": -880,
       "name": "Mobile - Quản lý / Thông tin & QR",
       "clip": true,
       "width": 390,
@@ -13948,8 +13948,8 @@
     {
       "type": "frame",
       "id": "lFWpF",
-      "x": 5700,
-      "y": 4440,
+      "x": 7334,
+      "y": -880,
       "name": "Mobile - Hóa đơn (Mang đi)",
       "clip": true,
       "width": 390,
@@ -14631,8 +14631,8 @@
     {
       "type": "frame",
       "id": "mowzw",
-      "x": 6150,
-      "y": 4440,
+      "x": 7784,
+      "y": -880,
       "name": "Print - Bill 80mm (Mang đi)",
       "clip": true,
       "width": 302,
@@ -14670,7 +14670,8 @@
           "content": "12 Nguyễn Huệ, Q.1, TP.HCM",
           "textAlign": "center",
           "fontFamily": "Roboto Mono",
-          "fontSize": 11
+          "fontSize": 11,
+          "fontWeight": "normal"
         },
         {
           "type": "text",
@@ -14682,7 +14683,8 @@
           "content": "ĐT: 0901 234 567",
           "textAlign": "center",
           "fontFamily": "Roboto Mono",
-          "fontSize": 11
+          "fontSize": 11,
+          "fontWeight": "normal"
         },
         {
           "type": "frame",
@@ -14746,7 +14748,8 @@
               "fill": "#15110E",
               "content": "MANG ĐI",
               "fontFamily": "Roboto Mono",
-              "fontSize": 12
+              "fontSize": 12,
+              "fontWeight": "normal"
             },
             {
               "type": "text",
@@ -14755,7 +14758,8 @@
               "fill": "#15110E",
               "content": "Đơn: #2",
               "fontFamily": "Roboto Mono",
-              "fontSize": 12
+              "fontSize": 12,
+              "fontWeight": "normal"
             }
           ]
         },
@@ -14781,7 +14785,8 @@
               "fill": "#15110E",
               "content": "Ngày:",
               "fontFamily": "Roboto Mono",
-              "fontSize": 12
+              "fontSize": 12,
+              "fontWeight": "normal"
             },
             {
               "type": "text",
@@ -14790,7 +14795,8 @@
               "fill": "#15110E",
               "content": "17/06/2026 23:48",
               "fontFamily": "Roboto Mono",
-              "fontSize": 12
+              "fontSize": 12,
+              "fontWeight": "normal"
             }
           ]
         },
@@ -14989,7 +14995,8 @@
               "fill": "#555049",
               "content": "Phương thức:",
               "fontFamily": "Roboto Mono",
-              "fontSize": 12
+              "fontSize": 12,
+              "fontWeight": "normal"
             },
             {
               "type": "text",
@@ -14998,7 +15005,8 @@
               "fill": "#555049",
               "content": "Tiền mặt",
               "fontFamily": "Roboto Mono",
-              "fontSize": 12
+              "fontSize": 12,
+              "fontWeight": "normal"
             }
           ]
         },
@@ -15024,7 +15032,8 @@
               "fill": "#15110E",
               "content": "Khách đưa:",
               "fontFamily": "Roboto Mono",
-              "fontSize": 12
+              "fontSize": 12,
+              "fontWeight": "normal"
             },
             {
               "type": "text",
@@ -15033,7 +15042,8 @@
               "fill": "#15110E",
               "content": "100.000đ",
               "fontFamily": "Roboto Mono",
-              "fontSize": 12
+              "fontSize": 12,
+              "fontWeight": "normal"
             }
           ]
         },
@@ -15052,7 +15062,8 @@
               "fill": "#15110E",
               "content": "Tiền thối:",
               "fontFamily": "Roboto Mono",
-              "fontSize": 12
+              "fontSize": 12,
+              "fontWeight": "normal"
             },
             {
               "type": "text",
@@ -15061,7 +15072,8 @@
               "fill": "#15110E",
               "content": "1.000đ",
               "fontFamily": "Roboto Mono",
-              "fontSize": 12
+              "fontSize": 12,
+              "fontWeight": "normal"
             }
           ]
         },
@@ -15102,7 +15114,8 @@
           "content": "Quét QR để chuyển khoản",
           "textAlign": "center",
           "fontFamily": "Roboto Mono",
-          "fontSize": 11
+          "fontSize": 11,
+          "fontWeight": "normal"
         },
         {
           "type": "frame",
@@ -15147,7 +15160,8 @@
           "content": "Vietcombank · 0123456789",
           "textAlign": "center",
           "fontFamily": "Roboto Mono",
-          "fontSize": 11
+          "fontSize": 11,
+          "fontWeight": "normal"
         },
         {
           "type": "text",
@@ -15159,7 +15173,8 @@
           "content": "COFORD COFFEE",
           "textAlign": "center",
           "fontFamily": "Roboto Mono",
-          "fontSize": 11
+          "fontSize": 11,
+          "fontWeight": "normal"
         },
         {
           "type": "frame",
@@ -15218,15 +15233,16 @@
           "content": "Powered by Coford POS",
           "textAlign": "center",
           "fontFamily": "Roboto Mono",
-          "fontSize": 10
+          "fontSize": 10,
+          "fontWeight": "normal"
         }
       ]
     },
     {
       "type": "frame",
       "id": "tbCVU",
-      "x": 300,
-      "y": 5420,
+      "x": 1934,
+      "y": 100,
       "name": "Mobile - Bán hàng (Tại bàn)",
       "clip": true,
       "width": 390,
@@ -15725,8 +15741,8 @@
     {
       "type": "frame",
       "id": "Wn3tR",
-      "x": 3000,
-      "y": 5420,
+      "x": 4634,
+      "y": 100,
       "name": "Mobile - Giỏ hàng (Tại bàn)",
       "clip": true,
       "width": 390,
@@ -16014,8 +16030,8 @@
     {
       "type": "frame",
       "id": "mTMJu",
-      "x": 5700,
-      "y": 5420,
+      "x": 7334,
+      "y": 100,
       "name": "Mobile - Hóa đơn (Tại bàn)",
       "clip": true,
       "width": 390,
@@ -16697,8 +16713,8 @@
     {
       "type": "frame",
       "id": "k287Dc",
-      "x": 6150,
-      "y": 5420,
+      "x": 7784,
+      "y": 100,
       "name": "Print - Bill 80mm (Tại bàn)",
       "clip": true,
       "width": 302,
@@ -16736,7 +16752,8 @@
           "content": "12 Nguyễn Huệ, Q.1, TP.HCM",
           "textAlign": "center",
           "fontFamily": "Roboto Mono",
-          "fontSize": 11
+          "fontSize": 11,
+          "fontWeight": "normal"
         },
         {
           "type": "text",
@@ -16748,7 +16765,8 @@
           "content": "ĐT: 0901 234 567",
           "textAlign": "center",
           "fontFamily": "Roboto Mono",
-          "fontSize": 11
+          "fontSize": 11,
+          "fontWeight": "normal"
         },
         {
           "type": "frame",
@@ -16812,7 +16830,8 @@
               "fill": "#15110E",
               "content": "Bàn: B1",
               "fontFamily": "Roboto Mono",
-              "fontSize": 12
+              "fontSize": 12,
+              "fontWeight": "normal"
             },
             {
               "type": "text",
@@ -16821,7 +16840,8 @@
               "fill": "#15110E",
               "content": "Đơn: #2",
               "fontFamily": "Roboto Mono",
-              "fontSize": 12
+              "fontSize": 12,
+              "fontWeight": "normal"
             }
           ]
         },
@@ -16847,7 +16867,8 @@
               "fill": "#15110E",
               "content": "Ngày:",
               "fontFamily": "Roboto Mono",
-              "fontSize": 12
+              "fontSize": 12,
+              "fontWeight": "normal"
             },
             {
               "type": "text",
@@ -16856,7 +16877,8 @@
               "fill": "#15110E",
               "content": "17/06/2026 23:48",
               "fontFamily": "Roboto Mono",
-              "fontSize": 12
+              "fontSize": 12,
+              "fontWeight": "normal"
             }
           ]
         },
@@ -17055,7 +17077,8 @@
               "fill": "#555049",
               "content": "Phương thức:",
               "fontFamily": "Roboto Mono",
-              "fontSize": 12
+              "fontSize": 12,
+              "fontWeight": "normal"
             },
             {
               "type": "text",
@@ -17064,7 +17087,8 @@
               "fill": "#555049",
               "content": "Tiền mặt",
               "fontFamily": "Roboto Mono",
-              "fontSize": 12
+              "fontSize": 12,
+              "fontWeight": "normal"
             }
           ]
         },
@@ -17090,7 +17114,8 @@
               "fill": "#15110E",
               "content": "Khách đưa:",
               "fontFamily": "Roboto Mono",
-              "fontSize": 12
+              "fontSize": 12,
+              "fontWeight": "normal"
             },
             {
               "type": "text",
@@ -17099,7 +17124,8 @@
               "fill": "#15110E",
               "content": "100.000đ",
               "fontFamily": "Roboto Mono",
-              "fontSize": 12
+              "fontSize": 12,
+              "fontWeight": "normal"
             }
           ]
         },
@@ -17118,7 +17144,8 @@
               "fill": "#15110E",
               "content": "Tiền thối:",
               "fontFamily": "Roboto Mono",
-              "fontSize": 12
+              "fontSize": 12,
+              "fontWeight": "normal"
             },
             {
               "type": "text",
@@ -17127,7 +17154,8 @@
               "fill": "#15110E",
               "content": "1.000đ",
               "fontFamily": "Roboto Mono",
-              "fontSize": 12
+              "fontSize": 12,
+              "fontWeight": "normal"
             }
           ]
         },
@@ -17168,7 +17196,8 @@
           "content": "Quét QR để chuyển khoản",
           "textAlign": "center",
           "fontFamily": "Roboto Mono",
-          "fontSize": 11
+          "fontSize": 11,
+          "fontWeight": "normal"
         },
         {
           "type": "frame",
@@ -17213,7 +17242,8 @@
           "content": "Vietcombank · 0123456789",
           "textAlign": "center",
           "fontFamily": "Roboto Mono",
-          "fontSize": 11
+          "fontSize": 11,
+          "fontWeight": "normal"
         },
         {
           "type": "text",
@@ -17225,7 +17255,8 @@
           "content": "COFORD COFFEE",
           "textAlign": "center",
           "fontFamily": "Roboto Mono",
-          "fontSize": 11
+          "fontSize": 11,
+          "fontWeight": "normal"
         },
         {
           "type": "frame",
@@ -17284,15 +17315,16 @@
           "content": "Powered by Coford POS",
           "textAlign": "center",
           "fontFamily": "Roboto Mono",
-          "fontSize": 10
+          "fontSize": 10,
+          "fontWeight": "normal"
         }
       ]
     },
     {
       "type": "frame",
       "id": "PX6fC",
-      "x": 3900,
-      "y": 5420,
+      "x": 5534,
+      "y": 100,
       "name": "Mobile - Chi tiết đơn (Mang đi)",
       "clip": true,
       "width": 390,
@@ -17819,8 +17851,8 @@
     {
       "type": "frame",
       "id": "TiKjO",
-      "x": 300,
-      "y": 6400,
+      "x": 1934,
+      "y": 1080,
       "name": "Mobile - Chọn bàn (sheet)",
       "clip": true,
       "width": 390,
@@ -18324,8 +18356,8 @@
     {
       "type": "frame",
       "id": "IevcF",
-      "x": 5250,
-      "y": 5420,
+      "x": 6884,
+      "y": 100,
       "name": "Mobile - Quản lý / Bàn",
       "clip": true,
       "width": 390,
