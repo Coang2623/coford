@@ -20,11 +20,17 @@ Future<void> main() async {
   );
 }
 
-class CofordApp extends StatelessWidget {
+class CofordApp extends ConsumerWidget {
   const CofordApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final settings = ref.watch(settingsProvider).value ?? {};
+    final themeKey = settings['theme_color'] ?? 'espresso';
+
+    // Cập nhật bảng màu trước khi dựng ThemeData
+    AppColors.updateTheme(themeKey);
+
     return MaterialApp(
       title: 'Coford',
       debugShowCheckedModeBanner: false,

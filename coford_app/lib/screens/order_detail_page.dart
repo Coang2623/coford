@@ -62,7 +62,7 @@ class OrderDetailPage extends ConsumerWidget {
         backgroundColor: AppColors.background,
         elevation: 0,
         scrolledUnderElevation: 0,
-        leading: const BackButton(color: AppColors.accent),
+        leading: BackButton(color: AppColors.accent),
         title: Text('Đơn #$orderId', style: AppText.headline),
         centerTitle: false,
       ),

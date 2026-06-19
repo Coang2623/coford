@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 /// Bảng màu & theme theo tinh thần iOS 26 (KHÔNG dùng liquid glass):
 /// nền phẳng sạch, thẻ bo góc, bóng đổ nhẹ, typography kiểu SF.
 class AppColors {
-  // Accent espresso ấm thay cho xanh hệ thống (app cà phê)
-  static const Color accent = Color(0xFF8A5A2B);
-  static const Color accentSoft = Color(0xFFF2E8DD);
+  // Accent động thay đổi theo cấu hình
+  static Color accent = const Color(0xFF8A5A2B);
+  static Color accentSoft = const Color(0xFFF2E8DD);
 
   // Nền hệ thống (iOS systemGroupedBackground sáng)
   static const Color background = Color(0xFFF2F2F7);
@@ -23,6 +23,21 @@ class AppColors {
   static const Color orange = Color(0xFFFF9500);
   static const Color blue = Color(0xFF007AFF);
   static const Color fill = Color(0xFFEFEFF4);
+
+  // Danh sách chủ đề màu sắc
+  static const Map<String, (Color, Color, String)> themes = {
+    'espresso': (Color(0xFF8A5A2B), Color(0xFFF2E8DD), 'Espresso (Ấm áp)'),
+    'matcha': (Color(0xFF2E7D32), Color(0xFFE8F5E9), 'Matcha (Thanh mát)'),
+    'ocean': (Color(0xFF007AFF), Color(0xFFE5F1FF), 'Ocean Blue (Mát mẻ)'),
+    'rose': (Color(0xFFD81B60), Color(0xFFFCE4EC), 'Rose Berry (Ngọt ngào)'),
+    'charcoal': (Color(0xFF37474F), Color(0xFFECEFF1), 'Charcoal (Sang trọng)'),
+  };
+
+  static void updateTheme(String key) {
+    final t = themes[key] ?? themes['espresso']!;
+    accent = t.$1;
+    accentSoft = t.$2;
+  }
 }
 
 class AppRadius {
@@ -61,7 +76,7 @@ ThemeData buildAppTheme() {
       displayColor: AppColors.label,
       fontFamily: fontFamily,
     ),
-    cupertinoOverrideTheme: const CupertinoThemeData(
+    cupertinoOverrideTheme: CupertinoThemeData(
       primaryColor: AppColors.accent,
     ),
   );

@@ -99,7 +99,7 @@ class _MenuAdminPageState extends ConsumerState<MenuAdminPage> {
       title: 'Quản lý',
       actions: [
         IconButton(
-          icon: const Icon(CupertinoIcons.add_circled_solid,
+          icon: Icon(CupertinoIcons.add_circled_solid,
               color: AppColors.accent),
           onPressed: () => _editItem(),
           tooltip: 'Thêm món',
@@ -129,7 +129,7 @@ class _MenuAdminPageState extends ConsumerState<MenuAdminPage> {
                             color: AppColors.card,
                             borderRadius: BorderRadius.circular(30),
                             boxShadow: kCardShadow),
-                        child: const Icon(CupertinoIcons.add,
+                        child: Icon(CupertinoIcons.add,
                             size: 18, color: AppColors.accent),
                       ),
                     ),
@@ -461,9 +461,61 @@ class _SettingsCard extends ConsumerWidget {
     }
   }
 
+  Future<void> _selectTheme(BuildContext context, WidgetRef ref, String? current) async {
+    final selected = await showCupertinoModalPopup<String>(
+      context: context,
+      builder: (context) => CupertinoActionSheet(
+        title: const Text('Chọn màu chủ đề'),
+        actions: [
+          for (final entry in AppColors.themes.entries)
+            CupertinoActionSheetAction(
+              onPressed: () => Navigator.pop(context, entry.key),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 18,
+                    height: 18,
+                    decoration: BoxDecoration(
+                      color: entry.value.$1,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Text(
+                    entry.value.$3,
+                    style: TextStyle(
+                      color: entry.key == (current ?? 'espresso')
+                          ? entry.value.$1
+                          : AppColors.label,
+                      fontWeight: entry.key == (current ?? 'espresso')
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+        ],
+        cancelButton: CupertinoActionSheetAction(
+          isDefaultAction: true,
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Hủy'),
+        ),
+      ),
+    );
+    if (selected != null) {
+      await ref.read(repositoryProvider).setSetting('theme_color', selected);
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final s = ref.watch(settingsProvider).value ?? {};
+    final currentTheme = s['theme_color'] ?? 'espresso';
+    final themeName = AppColors.themes[currentTheme]?.$3 ?? 'Espresso (Ấm áp)';
+    final themeColor = AppColors.themes[currentTheme]?.$1 ?? AppColors.accent;
+
     final rows = [
       ('shop_name', 'Tên quán', s['shop_name']),
       ('bank_name', 'Ngân hàng', s['bank_name']),
@@ -474,8 +526,36 @@ class _SettingsCard extends ConsumerWidget {
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
       child: Column(
         children: [
+          // Tùy chọn cấu hình màu sắc
+          InkWell(
+            onTap: () => _selectTheme(context, ref, currentTheme),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              child: Row(
+                children: [
+                  const Text('Màu chủ đề', style: AppText.body),
+                  const Spacer(),
+                  Container(
+                    width: 14,
+                    height: 14,
+                    decoration: BoxDecoration(
+                      color: themeColor,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(themeName,
+                      style: AppText.subhead
+                          .copyWith(color: AppColors.secondaryLabel)),
+                  const SizedBox(width: 6),
+                  const Icon(CupertinoIcons.chevron_forward,
+                      size: 16, color: AppColors.tertiaryLabel),
+                ],
+              ),
+            ),
+          ),
           for (int i = 0; i < rows.length; i++) ...[
-            if (i > 0) const Divider(height: 1, color: AppColors.separator),
+            const Divider(height: 1, color: AppColors.separator),
             InkWell(
               onTap: () =>
                   _edit(context, ref, rows[i].$1, rows[i].$2, rows[i].$3),

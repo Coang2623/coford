@@ -51,7 +51,7 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
         backgroundColor: AppColors.background,
         elevation: 0,
         scrolledUnderElevation: 0,
-        leading: const BackButton(color: AppColors.accent),
+        leading: BackButton(color: AppColors.accent),
         title: const Text('Thanh toán', style: AppText.headline),
         centerTitle: false,
       ),

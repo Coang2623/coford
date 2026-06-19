@@ -108,7 +108,7 @@ class _OrderPageState extends ConsumerState<OrderPage> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               child: Row(
                 children: [
-                  const Icon(CupertinoIcons.table, color: AppColors.accent),
+                  Icon(CupertinoIcons.table, color: AppColors.accent),
                   const SizedBox(width: 10),
                   const Text('Bàn', style: AppText.headline),
                   const Spacer(),
@@ -267,7 +267,7 @@ class _MenuRow extends StatelessWidget {
                       color: AppColors.accentSoft,
                       borderRadius: BorderRadius.circular(AppRadius.sm),
                     ),
-                    child: const Icon(CupertinoIcons.plus,
+                    child: Icon(CupertinoIcons.plus,
                         color: AppColors.accent, size: 22),
                   ),
                 ),
@@ -278,7 +278,7 @@ class _MenuRow extends StatelessWidget {
                   top: -6,
                   child: Container(
                     padding: const EdgeInsets.all(5),
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                         color: AppColors.accent, shape: BoxShape.circle),
                     constraints:
                         const BoxConstraints(minWidth: 20, minHeight: 20),
